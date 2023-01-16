@@ -4,9 +4,7 @@
 , cmake
 , pkg-config
 , stdenv
-, libiconv
-, Security
-, SystemConfiguration
+, curl
 , openssl
 }:
 
@@ -25,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = if stdenv.isDarwin
-    then [ libiconv Security SystemConfiguration ]
+    then [ curl ]
     else [ openssl ];
 
   # Needed to get openssl-sys to use pkg-config.
