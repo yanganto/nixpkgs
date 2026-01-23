@@ -2661,6 +2661,8 @@ with pkgs;
 
   fcitx5-anthy = callPackage ../tools/inputmethods/fcitx5/fcitx5-anthy.nix { };
 
+  fcitx5-array = callPackage ../tools/inputmethods/fcitx5/fcitx5-array.nix { };
+
   fcitx5-chewing = callPackage ../tools/inputmethods/fcitx5/fcitx5-chewing.nix { };
 
   fcitx5-lua = callPackage ../tools/inputmethods/fcitx5/fcitx5-lua.nix { lua = lua5_3; };
