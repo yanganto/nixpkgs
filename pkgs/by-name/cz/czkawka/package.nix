@@ -4,6 +4,7 @@
   cairo,
   callPackage,
   fetchFromGitHub,
+  fixDarwinDylibNames ?  stdenv.hostPlatform.isDarwin,
   fontconfig,
   gdk-pixbuf,
   glib,
@@ -16,6 +17,7 @@
   rustPlatform,
   stdenv,
   testers,
+  waylandSupport ? stdenv.hostPlatform.isLinux,
   wayland,
   wrapGAppsHook4,
   xvfb-run,
@@ -52,6 +54,8 @@ let
       libglvnd
       libxkbcommon
       pango
+    ]
+    ++ lib.optionals waylandSupport [
       wayland
     ];
 
@@ -76,7 +80,7 @@ let
     '';
     dontWrapGApps = true;
 
-    postFixup = ''
+    postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
       wrapGApp $out/bin/czkawka_gui
 
       patchelf --add-rpath "${
@@ -84,6 +88,8 @@ let
           fontconfig
           libglvnd
           libxkbcommon
+        ]
+        ++ lib.optionals waylandSupport [
           wayland
         ]
       }" $out/bin/krokiet
